@@ -2,6 +2,8 @@ package classproject.dearme.domain.user;
 
 
 import classproject.dearme.domain.base.BaseEntity;
+import classproject.dearme.dto.user.UserCreateDto;
+import classproject.dearme.dto.user.UserInfoDto;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
@@ -21,6 +24,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicUpdate
 @Getter
 @Builder
+@Setter
 @Table(name = "USERS") //User예약어라 변경
 public class User extends BaseEntity {
 
@@ -28,6 +32,10 @@ public class User extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
 	private Long id; // PK로 활용하기 위한 id값
+
+
+	@Column(nullable = false)
+	private String username; // 사용자 아이디
 
 	@Column(nullable = false)
 	private String password; // 사용자 비밀 번호
@@ -43,7 +51,16 @@ public class User extends BaseEntity {
 
 	@Column(nullable = false)
 	private String image; // 사용자 사진
-	
+
+	public static User getUser(UserCreateDto userCreateDto) {
+		return User.builder()
+			.username(userCreateDto.getUsername())
+			.email(userCreateDto.getEmail())
+			.password(userCreateDto.getPassword())
+			.phone(userCreateDto.getPhone())
+			.build();
+	}
+
 
 
 
