@@ -2,6 +2,7 @@ package classproject.dearme.domain.user;
 
 
 import classproject.dearme.domain.base.BaseEntity;
+import classproject.dearme.domain.schedule.Schedule;
 import classproject.dearme.domain.timecapsule.TimeCapsule;
 import classproject.dearme.dto.user.UserCreateDto;
 import classproject.dearme.dto.user.UserInfoDto;
@@ -56,6 +57,9 @@ public class User extends BaseEntity {
 
 	@OneToMany
 	private List<TimeCapsule> timeCapsules = new ArrayList<TimeCapsule>();
+
+	@OneToMany
+	private List<Schedule> schedules = new ArrayList<Schedule>();
 
 	public static User getUser(UserCreateDto userCreateDto) {
 		return User.builder()

@@ -1,8 +1,13 @@
-package classproject.dearme.domain.diary;
+package classproject.dearme.domain.schedule;
 
 import classproject.dearme.domain.base.BaseEntity;
-import classproject.dearme.domain.user.User;
-import classproject.dearme.dto.diary.DiaryInfoDto;
+import classproject.dearme.domain.timecapsule.TimeCapsule;
+
+import classproject.dearme.dto.schedule.TodoInfoDto;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,30 +32,35 @@ import org.hibernate.annotations.DynamicUpdate;
 @Getter
 @Builder
 @Setter
-public class Diary extends BaseEntity {
-
+public class ToDo extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "diary_id")
+	@Column(name = "todo_id")
 	private Long id; // PK로 활용하기 위한 id값
 
-	private int coordinateX;
+	private String content;
 
-	private int coordinateY;
+	private boolean checkTodo;
 
-	private String imageType;
+	private String startTime;
+
+	private String endTime;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-	private User user;
+	@JoinColumn(name = "schedule_id")
+	private Schedule schedule;
 
-	public static Diary getDiary(DiaryInfoDto diaryInfoDto, User user) {
-		return Diary.builder()
-			.coordinateX(diaryInfoDto.getCoordinateX())
-			.coordinateY(diaryInfoDto.getCoordinateY())
-			.imageType(diaryInfoDto.getImageType())
-			.user(user)
+
+
+
+	public static ToDo getToDo(TodoInfoDto todoInfoDto, Schedule schedule) {
+		return ToDo.builder()
+			.content(todoInfoDto.getContent())
+			.checkTodo(todoInfoDto.isCheckTodo())
+			.startTime(todoInfoDto.getStartTime())
+			.endTime(todoInfoDto.getEndTime())
+			.schedule(schedule)
 			.build();
 	}
 
