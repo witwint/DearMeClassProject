@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 
-//@EnableJpaAuditing // BaseEntity를 통하여 각 도메인들이 처음으로 생성된 날짜와 수정된 날짜를 파악하도록 사용
+@EnableJpaAuditing // BaseEntity를 통하여 각 도메인들이 처음으로 생성된 날짜와 수정된 날짜를 파악하도록 사용
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class) //시큐리티 기본로그인 제거
 public class DearmeApplication {
 

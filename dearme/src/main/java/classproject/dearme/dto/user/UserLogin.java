@@ -7,11 +7,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class UserUpdateDto {
+public class UserLogin {
 
 	private String username;
 
-	private String content;
+	private String password;
 
-	private String image;
 }

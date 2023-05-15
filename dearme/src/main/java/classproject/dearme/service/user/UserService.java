@@ -5,14 +5,17 @@ import static classproject.dearme.dto.user.UserInfoDto.toDto;
 import classproject.dearme.domain.user.User;
 import classproject.dearme.dto.user.UserCreateDto;
 import classproject.dearme.dto.user.UserInfoDto;
+import classproject.dearme.dto.user.UserLogin;
 import classproject.dearme.dto.user.UserUpdateDto;
 import classproject.dearme.repository.user.UserRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 //회원 로직
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -21,17 +24,21 @@ public class UserService {
 
 	//회원등록
 	@Transactional
-	public void saveUser(UserCreateDto userCreateDto) {
+	public User saveUser(UserCreateDto userCreateDto) {
 		User user = User.getUser(userCreateDto);
 		userRepository.save(user);
+		return user;
 	}
 
 	//회원 로그인
 	@Transactional
-	public User login(String name, String password) {
-		User findUser =  userRepository.findByUsername(name);
-		if (findUser.getPassword() == password) {
-			return findUser;
+	public UserInfoDto login(UserLogin userLogin) {
+
+		User findUser =  userRepository.findByUsername(userLogin.getUsername());
+		log.info("User {}",userLogin.getPassword());
+		log.info("findUser {}",findUser.getPassword());
+		if (findUser.getPassword().equals(userLogin.getPassword()) ) {
+			return toDto(findUser);
 		} else {
 			return null;
 		}
@@ -47,10 +54,11 @@ public class UserService {
 
 	//회원 정보 업데이트
 	@Transactional
-	public void updateUser(UserUpdateDto updateDto) {
+	public UserInfoDto updateUser(UserUpdateDto updateDto) {
 		User findUser =  userRepository.findByUsername(updateDto.getUsername());
 		findUser.setContent(updateDto.getContent());
 		findUser.setImage(updateDto.getImage());
+		return toDto(findUser);
 	}
 
 

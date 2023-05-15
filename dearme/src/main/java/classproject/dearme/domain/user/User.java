@@ -2,13 +2,17 @@ package classproject.dearme.domain.user;
 
 
 import classproject.dearme.domain.base.BaseEntity;
+import classproject.dearme.domain.timecapsule.TimeCapsule;
 import classproject.dearme.dto.user.UserCreateDto;
 import classproject.dearme.dto.user.UserInfoDto;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -46,11 +50,12 @@ public class User extends BaseEntity {
 	@Column(nullable = false)
 	private String phone; // 사용자 번호
 
-	@Column(nullable = false)
 	private String content; // 사용자 소개
 
-	@Column(nullable = false)
 	private String image; // 사용자 사진
+
+	@OneToMany(mappedBy = "users")
+	private List<TimeCapsule> timeCapsules = new ArrayList<TimeCapsule>();
 
 	public static User getUser(UserCreateDto userCreateDto) {
 		return User.builder()
