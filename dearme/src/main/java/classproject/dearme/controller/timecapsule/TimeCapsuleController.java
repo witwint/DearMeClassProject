@@ -1,4 +1,4 @@
-package classproject.dearme.controller.TimeCapsule;
+package classproject.dearme.controller.timecapsule;
 
 import classproject.dearme.dto.timecapsule.TimeCapsuleInfoDto;
 import classproject.dearme.response.Response;
