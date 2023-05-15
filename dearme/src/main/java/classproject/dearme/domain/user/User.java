@@ -54,7 +54,7 @@ public class User extends BaseEntity {
 
 	private String image; // 사용자 사진
 
-	@OneToMany(mappedBy = "users")
+	@OneToMany
 	private List<TimeCapsule> timeCapsules = new ArrayList<TimeCapsule>();
 
 	public static User getUser(UserCreateDto userCreateDto) {
