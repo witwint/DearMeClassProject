@@ -4,6 +4,7 @@ import classproject.dearme.domain.schedule.Schedule;
 import classproject.dearme.domain.schedule.ToDo;
 import classproject.dearme.domain.timecapsule.TimeCapsule;
 import classproject.dearme.domain.user.User;
+import io.swagger.annotations.ApiModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.OneToMany;
@@ -13,6 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 
+@ApiModel(value = "스케줄 DTO date=날짜 week=요일")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

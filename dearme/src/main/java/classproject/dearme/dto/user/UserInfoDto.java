@@ -1,11 +1,13 @@
 package classproject.dearme.dto.user;
 
 import classproject.dearme.domain.user.User;
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@ApiModel(value = "유저정보 DTO content=자기소개 image=image=사진(현재는텍스트)")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

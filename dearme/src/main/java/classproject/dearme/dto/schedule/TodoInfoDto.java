@@ -4,6 +4,7 @@ import classproject.dearme.domain.schedule.Schedule;
 import classproject.dearme.domain.schedule.ToDo;
 import classproject.dearme.domain.timecapsule.TimeCapsule;
 import classproject.dearme.dto.timecapsule.TimeCapsuleInfoDto;
+import io.swagger.annotations.ApiModel;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -12,6 +13,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@ApiModel(value = "할일 DTO content=내용 checkTodo=체크여부 startTime=시작시간 endTime=끝시간 scheduleId=스케줄요일Id")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
