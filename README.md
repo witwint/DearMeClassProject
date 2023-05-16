@@ -21,3 +21,7 @@ https://goyunji.tistory.com/137
 
 ## ELB배포
 프로젝트 파일 안에서 실행해야함 eb init하고 위치 주의 cmd에서 실행해야 가능 db비번 필수입력
+
+## 배포
+url : prod-dearme-api.ap-northeast-2.elasticbeanstalk.com/
+스웨거 : prod-dearme-api.ap-northeast-2.elasticbeanstalk.com/swagger-ui/index.html
