@@ -37,3 +37,26 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+task('release'){
+	/* ./gradlew build를 먼저 실행하라는 뜻이다. */
+	dependsOn("build")
+
+	doLast {
+		def stdout = new ByteArrayOutputStream()
+		/* exec - 커멘드 라인 프로세서; 파워셸/터미널에서 실행하는것과 같다. */
+		exec {
+			commandLine 'eb', 'setenv', 'SPRING_PROFILES_ACTIVE=prod'
+			standardOutput = stdout
+		}
+		/* 결과 로깅을 위한 작업 */
+		println "eb setenv SPRING_PROFILES_ACTIVE=prod :\n$stdout";
+		exec {
+			/* $eb deploy */
+			commandLine 'eb', 'deploy'
+			standardOutput = stdout
+		}
+		println "eb deploy :\n$stdout";
+		println "Release succeeded."
+	}
+}

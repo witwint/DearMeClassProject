@@ -18,3 +18,6 @@ https://velog.io/@kijrary/Spring-Boot-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8Gradle
 
 오류해결
 https://goyunji.tistory.com/137
+
+## ELB배포
+프로젝트 파일 안에서 실행해야함 eb init하고 위치 주의 cmd에서 실행해야 가능 db비번 필수입력
