@@ -4,16 +4,19 @@ package classproject.dearme.domain.user;
 import classproject.dearme.domain.base.BaseEntity;
 import classproject.dearme.domain.schedule.Schedule;
 import classproject.dearme.domain.timecapsule.TimeCapsule;
+import classproject.dearme.domain.uploadfile.UploadFile;
 import classproject.dearme.dto.user.UserCreateDto;
 import classproject.dearme.dto.user.UserInfoDto;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -54,6 +57,12 @@ public class User extends BaseEntity {
 	private String content; // 사용자 소개
 
 	private String image; // 사용자 사진
+
+	@OneToOne(cascade = CascadeType.PERSIST)
+	private UploadFile attachFile;
+
+	@OneToMany(cascade = CascadeType.PERSIST)
+	private List<UploadFile> imageFiles;
 
 	@OneToMany
 	private List<TimeCapsule> timeCapsules = new ArrayList<TimeCapsule>();

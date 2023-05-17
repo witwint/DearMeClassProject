@@ -24,6 +24,7 @@ public class UserInfoDto {
 
 	private String image;
 
+
 	public static UserInfoDto toDto(User user) {
 		return UserInfoDto.builder()
 			.username(user.getUsername())

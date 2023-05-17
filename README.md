@@ -25,3 +25,6 @@ https://goyunji.tistory.com/137
 ## 배포
 url : prod-dearme-api.ap-northeast-2.elasticbeanstalk.com/
 스웨거 : prod-dearme-api.ap-northeast-2.elasticbeanstalk.com/swagger-ui/index.html
+
+## 바인딩오류
+@ModelAttribute 바인딩할때는 객체에 @Data 있어야 바인딩 가능한듯
