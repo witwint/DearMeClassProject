@@ -77,15 +77,19 @@ public class UserController {
 	@PatchMapping("/{username}")
 	@ResponseStatus(HttpStatus.OK)
 	public Response updateUserInfo(@ModelAttribute UserUpdateDto userUpdateDto) throws IOException {
-		UploadFileDto attachFile = fileStore.storeFile(userUpdateDto.getAttachFile());
-		List<UploadFileDto> storeFiles = fileStore.storeFiles(userUpdateDto.getImageFiles());
-		UserInfoDto result = userService.updateUser(userUpdateDto, attachFile, storeFiles);
-		fileService.save(attachFile);
-		if (storeFiles != null) {
+		UploadFileDto attachFile = null;
+		List<UploadFileDto> storeFiles = null;
+		if (userUpdateDto.getAttachFile() != null) {
+			attachFile = fileStore.storeFile(userUpdateDto.getAttachFile());
+			fileService.save(attachFile);
+		}
+		if (userUpdateDto.getImageFiles() != null) {
+			storeFiles = fileStore.storeFiles(userUpdateDto.getImageFiles());
 			for (UploadFileDto storeFile : storeFiles) {
 				fileService.save(storeFile);
 			}
 		}
+		UserInfoDto result = userService.updateUser(userUpdateDto, attachFile, storeFiles);
 		return Response.success(result);
 	}
 
@@ -100,13 +104,19 @@ public class UserController {
 	}
 
 	//이미지 소스보기
+	@ApiOperation(
+		value = "이미지 파일보는 주소",
+		notes = "응답으로 오는 데이터중 attachFile파일명이용해서  url + /user/images/ + attachFile파일명 src에 넣으면 사진이 보입니다.")
 	@ResponseBody
 	@GetMapping("/images/{filename}")
 	public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
 		return new UrlResource("file:" + fileStore.getFullPath(filename));
 	}
 
-	//파일저장
+	//파일저장 사용x
+	@ApiOperation(
+		value = "파일다운 테스트",
+		notes = "사용하지 않습니다.")
 	@GetMapping("/attach/{uploadFileId}")
 	public ResponseEntity<Resource> downloadAttach(@PathVariable Long uploadFileId)
 		throws MalformedURLException {

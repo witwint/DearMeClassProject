@@ -11,7 +11,6 @@ import classproject.dearme.dto.user.UserLogin;
 import classproject.dearme.dto.user.UserUpdateDto;
 import classproject.dearme.repository.user.UserRepository;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -62,8 +61,11 @@ public class UserService {
 		User findUser =  userRepository.findByUsername(updateDto.getUsername());
 		log.info("content{}", updateDto.getContent());
 		findUser.setContent(updateDto.getContent());
-		if (UploadFile.getUploadFile(uploadFileDto) != null) {
-			findUser.setImage(UploadFile.getUploadFile(uploadFileDto).getStoreFileName());
+		if (uploadFileDto == null) {
+			findUser.setImage(null);
+		} else {
+			findUser.setImage(uploadFileDto.getStoreFileName());
+
 		}
 		findUser.setAttachFile(UploadFile.getUploadFile(uploadFileDto));
 		findUser.setImageFiles(UploadFile.getUploadFileList(uploadFileDtos));
