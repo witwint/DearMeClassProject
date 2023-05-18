@@ -32,7 +32,7 @@ public class FileStore {
 
 	public String getFullPath(String fileName) {
 		log.info("thisPath {} / filedir {} / fileName {}", thisPath, fileDir, fileName);
-		log.info("배포 주소 {}", thisPath + "/" + fileDir + fileName);
+		log.info("pathaws {}", thisPath + "/" + fileDir + fileName);
 		//절대경로는 배포상태에 따라 바꿔받고 프로젝트 내부의 경로는 상대경로로 사이에 "\\"로 연결
 		return thisPath + "/" +  fileDir + fileName;
 	}
