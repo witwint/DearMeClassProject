@@ -21,6 +21,6 @@ spring:
     password: ${rds.password}
 
 file:
-  dir: "src/main/resources/file/"
+  dir: "resources/main/file/"
 
 
