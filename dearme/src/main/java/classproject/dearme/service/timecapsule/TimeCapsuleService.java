@@ -45,4 +45,9 @@ public class TimeCapsuleService {
 		timeCapsuleRepository.deleteById(id);
 		return id + "deleteSuccess";
 	}
+
+	@Transactional
+	public void deleteAll() {
+		timeCapsuleRepository.deleteAll();
+	}
 }

@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,5 +50,15 @@ public class Diary {
 	@ResponseStatus(HttpStatus.OK)
 	public Response updateDiaryInfo(@RequestBody DiaryInfoDto diaryInfoDto) {
 		return Response.success(diaryService.update(diaryInfoDto));
+	}
+
+	@ApiOperation(
+		value = "다이어리 모두 삭제",
+		notes = "다이어리를 모두삭제하는 API")
+	@DeleteMapping("/deleteAll")
+	@ResponseStatus(HttpStatus.OK)
+	public Response deleteAllDiary() {
+		diaryService.deleteAll();
+		return Response.success("Success deleteAllDiary");
 	}
 }

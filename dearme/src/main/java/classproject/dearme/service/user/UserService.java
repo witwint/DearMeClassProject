@@ -72,5 +72,9 @@ public class UserService {
 		return toDto(findUser);
 	}
 
+	@Transactional
+	public void deleteAll() {
+		userRepository.deleteAll();
+	}
 
 }

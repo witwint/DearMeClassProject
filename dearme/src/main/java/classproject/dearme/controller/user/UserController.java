@@ -23,6 +23,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -134,6 +135,16 @@ public class UserController {
 		return ResponseEntity.ok()
 			.header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
 			.body(resource);
+	}
+
+	@ApiOperation(
+		value = "유저 모두 삭제",
+		notes = "유저 모두삭제하는 API")
+	@DeleteMapping("/deleteAll")
+	@ResponseStatus(HttpStatus.OK)
+	public Response deleteAllUser() {
+		userService.deleteAll();
+		return Response.success("Success deleteAllUser");
 	}
 
 

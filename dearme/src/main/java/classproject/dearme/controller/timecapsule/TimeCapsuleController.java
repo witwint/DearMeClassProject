@@ -52,4 +52,14 @@ public class TimeCapsuleController {
 		return Response.success(timeCapsuleService.delete(id));
 	}
 
+	@ApiOperation(
+		value = "타임캡슐 모두 삭제",
+		notes = "타임캡슐 모두삭제하는 API")
+	@DeleteMapping("/deleteAll")
+	@ResponseStatus(HttpStatus.OK)
+	public Response deleteAllTimeCapsule() {
+		 timeCapsuleService.deleteAll();
+		return Response.success("Success deleteAllTimeCapsule");
+	}
+
 }

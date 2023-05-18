@@ -53,4 +53,9 @@ public class DiaryService {
 
 	}
 
+	@Transactional
+	public void deleteAll() {
+		diaryRepository.deleteAll();
+	}
+
 }

@@ -83,6 +83,12 @@ public class ScheduleService {
 		return result;
 	}
 
+	@Transactional
+	public void deleteAll() {
+		toDoRepository.deleteAll();
+		scheduleRepository.deleteAll();
+	}
+
 
 
 }

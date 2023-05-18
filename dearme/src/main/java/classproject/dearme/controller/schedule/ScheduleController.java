@@ -88,4 +88,14 @@ public class ScheduleController {
 	public Response deleteTodo(@PathVariable Long todoid) {
 		return Response.success(scheduleService.deleteTodo(todoid));
 	}
+
+	@ApiOperation(
+		value = "스케줄 할일 모두 삭제",
+		notes = "스케줄 할일 모두삭제하는 API")
+	@DeleteMapping("/deleteAll")
+	@ResponseStatus(HttpStatus.OK)
+	public Response deleteAllSchedule() {
+		scheduleService.deleteAll();
+		return Response.success("Success deleteAllSchedule");
+	}
 }
