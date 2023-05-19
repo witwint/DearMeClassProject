@@ -6,6 +6,7 @@ import classproject.dearme.dto.user.UserInfoDto;
 import classproject.dearme.dto.user.UserLogin;
 import classproject.dearme.dto.user.UserUpdateDto;
 import classproject.dearme.file.FileStore;
+import classproject.dearme.file.S3Uploader;
 import classproject.dearme.response.Response;
 import classproject.dearme.service.file.FileService;
 import classproject.dearme.service.user.UserService;
@@ -48,6 +49,8 @@ public class UserController {
 
 	private final FileService fileService;
 
+	private final S3Uploader s3Uploader;
+
 	//회원가입
 
 
@@ -71,28 +74,6 @@ public class UserController {
 		return Response.success(userService.getUserInfo(username));
 	}
 
-	//회원 정보수정 소개,사진
-	@ApiOperation(
-		value = "유저정보수정",
-		notes = "마이페이지에서 유저정보를 수정하는 API")
-	@PatchMapping("/{username}")
-	@ResponseStatus(HttpStatus.OK)
-	public Response updateUserInfo(@ModelAttribute UserUpdateDto userUpdateDto) throws IOException {
-		UploadFileDto attachFile = null;
-		List<UploadFileDto> storeFiles = null;
-		if (userUpdateDto.getAttachFile() != null) {
-			attachFile = fileStore.storeFile(userUpdateDto.getAttachFile());
-			fileService.save(attachFile);
-		}
-		if (userUpdateDto.getImageFiles() != null) {
-			storeFiles = fileStore.storeFiles(userUpdateDto.getImageFiles());
-			for (UploadFileDto storeFile : storeFiles) {
-				fileService.save(storeFile);
-			}
-		}
-		UserInfoDto result = userService.updateUser(userUpdateDto, attachFile, storeFiles);
-		return Response.success(result);
-	}
 
 	//회원 로그인
 	@ApiOperation(
@@ -104,39 +85,6 @@ public class UserController {
 		return Response.success(userService.login(userLogin));
 	}
 
-	//이미지 소스보기
-	@ApiOperation(
-		value = "이미지 파일보는 주소",
-		notes = "응답으로 오는 데이터중 attachFile파일명이용해서  url + /user/images/ + attachFile파일명 src에 넣으면 사진이 보입니다.")
-	@ResponseBody
-	@GetMapping("/images/{filename}")
-	public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
-		return new UrlResource("file:" + fileStore.getFullPath(filename));
-	}
-
-	//파일저장 사용x
-	@ApiOperation(
-		value = "파일다운 테스트",
-		notes = "사용하지 않습니다.")
-	@GetMapping("/attach/{uploadFileId}")
-	public ResponseEntity<Resource> downloadAttach(@PathVariable Long uploadFileId)
-		throws MalformedURLException {
-		UploadFileDto uploadFileDto = fileService.findUploadFile(uploadFileId);
-		String storeFileName = uploadFileDto.getStoreFileName();
-		String uploadFileName = uploadFileDto.getUploadFileName();
-
-		UrlResource resource = new UrlResource("file:" + fileStore.getFullPath(storeFileName));
-
-		log.info("uploadFileName={}", uploadFileName);
-
-		String encodedUploadFileName = UriUtils.encode(uploadFileName,  StandardCharsets.UTF_8);
-		String contentDisposition = "attachment; filename=\"" +
-			encodedUploadFileName + "\"";
-		return ResponseEntity.ok()
-			.header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
-			.body(resource);
-	}
-
 	@ApiOperation(
 		value = "유저 모두 삭제",
 		notes = "유저 모두삭제하는 API")
@@ -146,6 +94,107 @@ public class UserController {
 		userService.deleteAll();
 		return Response.success("Success deleteAllUser");
 	}
+
+
+
+
+	//회원 정보수정 소개,사진
+	@ApiOperation(
+		value = "유저정보수정",
+		notes = "마이페이지에서 유저정보를 수정하는 API")
+	@PatchMapping("/{username}")
+	@ResponseStatus(HttpStatus.OK)
+	public Response updateUserInfo(@ModelAttribute UserUpdateDto userUpdateDto) throws IOException {
+		UploadFileDto attachFile = null;
+		List<UploadFileDto> storeFiles = null;
+		if (userUpdateDto.getAttachFile() != null) {
+			attachFile = s3Uploader.upload(userUpdateDto.getAttachFile());
+			fileService.save(attachFile);
+		}
+		if (userUpdateDto.getImageFiles() != null) {
+			storeFiles = s3Uploader.uploads(userUpdateDto.getImageFiles());
+			for (UploadFileDto storeFile : storeFiles) {
+				fileService.save(storeFile);
+			}
+		}
+		UserInfoDto result = userService.updateUser(userUpdateDto, attachFile, storeFiles);
+		return Response.success(result);
+	}
+
+
+	//이미지 소스보기
+	@ApiOperation(
+		value = "이미지 파일보는 주소",
+		notes = "응답으로 오는 데이터중 attachFile파일명이용해서  url + /user/images/ + attachFile파일명 src에 넣으면 사진이 보입니다.")
+	@ResponseBody
+	@GetMapping("/images/{filename}")
+	public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
+		return new UrlResource(s3Uploader.getFullPath(filename));
+	}
+
+
+
+
+
+
+//	//회원 정보수정 소개,사진
+//	@ApiOperation(
+//		value = "유저정보수정",
+//		notes = "마이페이지에서 유저정보를 수정하는 API")
+//	@PatchMapping("/{username}")
+//	@ResponseStatus(HttpStatus.OK)
+//	public Response updateUserInfo(@ModelAttribute UserUpdateDto userUpdateDto) throws IOException {
+//		UploadFileDto attachFile = null;
+//		List<UploadFileDto> storeFiles = null;
+//		if (userUpdateDto.getAttachFile() != null) {
+//			attachFile = fileStore.storeFile(userUpdateDto.getAttachFile());
+//			fileService.save(attachFile);
+//		}
+//		if (userUpdateDto.getImageFiles() != null) {
+//			storeFiles = fileStore.storeFiles(userUpdateDto.getImageFiles());
+//			for (UploadFileDto storeFile : storeFiles) {
+//				fileService.save(storeFile);
+//			}
+//		}
+//		UserInfoDto result = userService.updateUser(userUpdateDto, attachFile, storeFiles);
+//		return Response.success(result);
+//	}
+//
+//
+//	//이미지 소스보기
+//	@ApiOperation(
+//		value = "이미지 파일보는 주소",
+//		notes = "응답으로 오는 데이터중 attachFile파일명이용해서  url + /user/images/ + attachFile파일명 src에 넣으면 사진이 보입니다.")
+//	@ResponseBody
+//	@GetMapping("/images/{filename}")
+//	public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
+//		return new UrlResource("file:" + fileStore.getFullPath(filename));
+//	}
+//
+//	//파일저장 사용x
+//	@ApiOperation(
+//		value = "파일다운 테스트",
+//		notes = "사용하지 않습니다.")
+//	@GetMapping("/attach/{uploadFileId}")
+//	public ResponseEntity<Resource> downloadAttach(@PathVariable Long uploadFileId)
+//		throws MalformedURLException {
+//		UploadFileDto uploadFileDto = fileService.findUploadFile(uploadFileId);
+//		String storeFileName = uploadFileDto.getStoreFileName();
+//		String uploadFileName = uploadFileDto.getUploadFileName();
+//
+//		UrlResource resource = new UrlResource("file:" + fileStore.getFullPath(storeFileName));
+//
+//		log.info("uploadFileName={}", uploadFileName);
+//
+//		String encodedUploadFileName = UriUtils.encode(uploadFileName,  StandardCharsets.UTF_8);
+//		String contentDisposition = "attachment; filename=\"" +
+//			encodedUploadFileName + "\"";
+//		return ResponseEntity.ok()
+//			.header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
+//			.body(resource);
+//	}
+
+
 
 
 }

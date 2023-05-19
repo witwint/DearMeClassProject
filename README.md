@@ -28,3 +28,6 @@ url : prod-dearme-api.ap-northeast-2.elasticbeanstalk.com/
 
 ## 바인딩오류
 @ModelAttribute 바인딩할때는 객체에 @Data 있어야 바인딩 가능한듯
+
+## 파일업로드 s3참고
+https://dev-gorany.tistory.com/123

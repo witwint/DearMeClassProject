@@ -24,3 +24,14 @@ file:
   dir: "build/resources/main/file/"
 
 
+cloud:
+  aws:
+    s3:
+      bucket: dearmeimage
+    stack.auto: false
+    region.static: ap-northeast-2
+    credentials:
+      accessKey: AKIAWP5XMIAF2HJHRFTB
+      secretKey: 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
+
+
