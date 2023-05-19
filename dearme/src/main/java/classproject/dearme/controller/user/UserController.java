@@ -130,7 +130,7 @@ public class UserController {
 	@ResponseBody
 	@GetMapping("/images/{filename}")
 	public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
-		return new UrlResource("file:" + s3Uploader.getFullPath(filename));
+		return new UrlResource(s3Uploader.getFullPath(filename));
 	}
 
 
