@@ -9,7 +9,9 @@ import classproject.dearme.dto.user.UserCreateDto;
 import classproject.dearme.dto.user.UserInfoDto;
 import classproject.dearme.dto.user.UserLogin;
 import classproject.dearme.dto.user.UserUpdateDto;
+import classproject.dearme.repository.user.UserQueryRepository;
 import classproject.dearme.repository.user.UserRepository;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
 	private final UserRepository userRepository;
+	private final UserQueryRepository userQueryRepository;
 
 	//회원등록
 	@Transactional
@@ -75,6 +78,16 @@ public class UserService {
 	@Transactional
 	public void deleteAll() {
 		userRepository.deleteAll();
+	}
+
+	@Transactional
+	public List<UserInfoDto> getUserSearchAll(String word) {
+		List<UserInfoDto> userInfoDtos = new ArrayList<>();
+		List<User> findSearchUser = userQueryRepository.findSearchAll(word);
+		for (User user : findSearchUser) {
+			userInfoDtos.add(toDto(user));
+		}
+		return userInfoDtos;
 	}
 
 }

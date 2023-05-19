@@ -96,8 +96,6 @@ public class UserController {
 	}
 
 
-
-
 	//회원 정보수정 소개,사진
 	@ApiOperation(
 		value = "유저정보수정",
@@ -126,7 +124,7 @@ public class UserController {
 	//s3는 "file:"없어도됨
 	@ApiOperation(
 		value = "이미지 파일보는 주소",
-		notes = "응답으로 오는 데이터중 attachFile파일명이용해서  url + /user/images/ + attachFile파일명 src에 넣으면 사진이 보입니다.")
+		notes = "응답으로 오는 데이터중 image 파일명이용해서  url + /user/images/ + image 파일명 src에 넣으면 사진이 보입니다.")
 	@ResponseBody
 	@GetMapping("/images/{filename}")
 	public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
@@ -134,9 +132,14 @@ public class UserController {
 	}
 
 
-
-
-
+	@ApiOperation(
+		value = "유저 이름으로 검색",
+		notes = "유저 이름으로 존재하는 유저검색하는 API")
+	@ResponseStatus(HttpStatus.OK)
+	@GetMapping("search/{username}")
+	public Response searchUser(@PathVariable String username) {
+		return Response.success(userService.getUserSearchAll(username));
+	}
 
 //	//회원 정보수정 소개,사진
 //	@ApiOperation(
@@ -194,8 +197,6 @@ public class UserController {
 //			.header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
 //			.body(resource);
 //	}
-
-
 
 
 }
