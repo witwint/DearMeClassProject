@@ -30,4 +30,9 @@ url : prod-dearme-api.ap-northeast-2.elasticbeanstalk.com/
 @ModelAttribute 바인딩할때는 객체에 @Data 있어야 바인딩 가능한듯
 
 ## 파일업로드 s3참고
-https://dev-gorany.tistory.com/123
+https://europani.github.io/aws/2022/03/03/004-spring-s3.html
+
+## 로컬오류
+`com.amazonaws.SdkClientException: Failed to connect to service endpoint: `
+aws sdk 에러가 나는 이유는, build.gradle에, spring-cloud-starter-aws 의존성 주입시 로컬환경은, aws환경이 아니기때문에 나는 에러라고 한다.
+aws환경에서 실행시 아무문제가 없

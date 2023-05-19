@@ -123,6 +123,7 @@ public class UserController {
 
 
 	//이미지 소스보기
+	//s3는 "file:"없어도됨
 	@ApiOperation(
 		value = "이미지 파일보는 주소",
 		notes = "응답으로 오는 데이터중 attachFile파일명이용해서  url + /user/images/ + attachFile파일명 src에 넣으면 사진이 보입니다.")
