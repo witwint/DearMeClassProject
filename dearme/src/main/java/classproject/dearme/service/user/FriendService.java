@@ -85,6 +85,9 @@ public class FriendService {
 	public FriendInfoDto crateFriend(String userName, String opName) {
 		User user = userRepository.findByUsername(userName);
 		User opUser = userRepository.findByUsername(opName);
+		if (user == null || opUser == null) {
+			throw  new IllegalArgumentException("not found user");
+		}
 		Friend friend = Friend.getFriendList(user, opUser);
 		friendRepository.save(friend);
 //		user.setFollowing(friend);
