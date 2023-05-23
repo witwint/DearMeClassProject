@@ -64,6 +64,8 @@ public class UserService {
 		User findUser =  userRepository.findByUsername(updateDto.getUsername());
 		log.info("content{}", updateDto.getContent());
 		findUser.setContent(updateDto.getContent());
+		findUser.setEmail(updateDto.getEmail());
+		findUser.setPhone(updateDto.getPhone());
 		if (uploadFileDto == null) {
 			findUser.setImage(null);
 		} else {
@@ -89,5 +91,7 @@ public class UserService {
 		}
 		return userInfoDtos;
 	}
+
+
 
 }

@@ -70,6 +70,19 @@ public class User extends BaseEntity {
 	@OneToMany
 	private List<Schedule> schedules = new ArrayList<Schedule>();
 
+//	@OneToMany(mappedBy = "follower")
+//	private List<Friend> following;
+//
+//	@OneToMany(mappedBy = "followee")
+//	private List<Friend> followers;
+//
+//	public void setFollowing(Friend friend) {
+//		this.following.add(friend);
+//	}
+//
+//	public void setFollowers(Friend friend) {
+//		this.followers.add(friend);
+//	}
 	public static User getUser(UserCreateDto userCreateDto) {
 		return User.builder()
 			.username(userCreateDto.getUsername())

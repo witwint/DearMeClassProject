@@ -24,4 +24,8 @@ public class UserUpdateDto {
 	private MultipartFile attachFile;
 
 	private List<MultipartFile> imageFiles;
+
+	private String email;
+
+	private String phone;
 }
