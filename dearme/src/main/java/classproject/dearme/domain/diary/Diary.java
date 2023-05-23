@@ -40,6 +40,10 @@ public class Diary extends BaseEntity {
 
 	private String imageType;
 
+	private String title;
+
+	private String color;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
@@ -49,6 +53,8 @@ public class Diary extends BaseEntity {
 			.coordinateX(diaryInfoDto.getCoordinateX())
 			.coordinateY(diaryInfoDto.getCoordinateY())
 			.imageType(diaryInfoDto.getImageType())
+			.title(diaryInfoDto.getTitle())
+			.color(diaryInfoDto.getColor())
 			.user(user)
 			.build();
 	}

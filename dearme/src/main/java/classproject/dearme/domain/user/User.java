@@ -8,6 +8,7 @@ import classproject.dearme.domain.uploadfile.UploadFile;
 import classproject.dearme.dto.user.UserCreateDto;
 import classproject.dearme.dto.user.UserInfoDto;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,6 +26,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @AllArgsConstructor
@@ -34,7 +38,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @Builder
 @Setter
 @Table(name = "USERS") //User예약어라 변경
-public class User extends BaseEntity {
+public class User extends BaseEntity implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,19 +74,7 @@ public class User extends BaseEntity {
 	@OneToMany
 	private List<Schedule> schedules = new ArrayList<Schedule>();
 
-//	@OneToMany(mappedBy = "follower")
-//	private List<Friend> following;
-//
-//	@OneToMany(mappedBy = "followee")
-//	private List<Friend> followers;
-//
-//	public void setFollowing(Friend friend) {
-//		this.following.add(friend);
-//	}
-//
-//	public void setFollowers(Friend friend) {
-//		this.followers.add(friend);
-//	}
+
 	public static User getUser(UserCreateDto userCreateDto) {
 		return User.builder()
 			.username(userCreateDto.getUsername())
@@ -93,6 +85,38 @@ public class User extends BaseEntity {
 	}
 
 
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return List.of(new SimpleGrantedAuthority("user"));
+	}
 
+	@Override
+	public String getUsername() {
+		return email;
+	}
 
+	@Override
+	public String getPassword() {
+		return password;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
 }

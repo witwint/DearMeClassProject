@@ -92,6 +92,11 @@ public class UserService {
 		return userInfoDtos;
 	}
 
+	public User findById(Long userId) {
+		return userRepository.findById(userId)
+			.orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
+	}
+
 
 
 }

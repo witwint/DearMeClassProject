@@ -24,6 +24,10 @@ public class DiaryInfoDto {
 
 	private String imageType;
 
+	private String title;
+
+	private String color;
+
 	public static DiaryInfoDto toDto(Diary diary) {
 		return DiaryInfoDto.builder()
 			.id(diary.getId())
@@ -31,6 +35,8 @@ public class DiaryInfoDto {
 			.coordinateX(diary.getCoordinateX())
 			.coordinateY(diary.getCoordinateY())
 			.imageType(diary.getImageType())
+			.title(diary.getTitle())
+			.color(diary.getColor())
 			.build();
 	}
 

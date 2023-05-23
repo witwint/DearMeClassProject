@@ -34,4 +34,6 @@ cloud:
       accessKey: AKIAWP5XMIAF2HJHRFTB
       secretKey: 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
 
-
+jwt:
+  issuer: witwint1234@gmail.com
+  secret_key: study-springboot
