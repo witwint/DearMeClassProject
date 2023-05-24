@@ -70,6 +70,9 @@ public class User extends BaseEntity {
 	@OneToMany
 	private List<Schedule> schedules = new ArrayList<Schedule>();
 
+
+
+
 //	@OneToMany(mappedBy = "follower")
 //	private List<Friend> following;
 //
