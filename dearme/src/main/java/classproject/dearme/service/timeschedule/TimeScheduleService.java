@@ -13,6 +13,7 @@ import classproject.dearme.repository.user.UserRepository;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -31,8 +32,10 @@ public class TimeScheduleService {
 	@Transactional
 	public DayScheduleResponse saveDaySchedule(DayScheduleRequest dayScheduleRequest) {
 		User user = userRepository.findByUsername(dayScheduleRequest.getUserName());
+		log.info("user = {}", user.getUsername());
 		DaySchedule daySchedule = new DaySchedule(dayScheduleRequest.getToday(),
 			dayScheduleRequest.getTomorrow(), dayScheduleRequest.getDate(), user);
+		log.info("daySchedule = {}", daySchedule.getId());
 		dayScheduleRepository.save(daySchedule);
 		return DayScheduleResponse.toDto(daySchedule);
 	}
@@ -46,6 +49,7 @@ public class TimeScheduleService {
 			toDoScheduleRequest.getEndTime());
 		toDoScheduleRepository.save(toDoSchedule);
 		daySchedule.addToDoSchedules(toDoSchedule);
+		log.info("save todo at dat {}", daySchedule.getToDoSchedules().size());
 
 		return ToDoScheduleResponse.toDto(toDoSchedule);
 	}
@@ -57,7 +61,7 @@ public class TimeScheduleService {
 		for (int i = 0; i < 7; i++) {
 			String result = baseDate.plusDays(i).toString();
 			dayScheduleResponses.add(DayScheduleResponse.toDto(
-				dayScheduleRepository.findByDateAndUser_Username(result, userName)));
+				dayScheduleRepository.findByDateAndUser_Username(result, userName).orElse(null)));
 		}
 		return dayScheduleResponses;
 	}
@@ -70,8 +74,20 @@ public class TimeScheduleService {
 
 	@Transactional
 	public String deleteToDoSchedule(Long idToDoSchedule) {
+		DaySchedule doSchedule = dayScheduleRepository.findByToDoSchedules_Id(
+			idToDoSchedule);
+	ToDoSchedule toDoSchedule = toDoScheduleRepository.getReferenceById(
+			idToDoSchedule);
+		doSchedule.deleteToDoSchedule(toDoSchedule);
 		toDoScheduleRepository.deleteById(idToDoSchedule);
 		return "Success delete DaySchedule id = " + idToDoSchedule;
+	}
+
+	@Transactional
+	public String deleteAll() {
+		toDoScheduleRepository.deleteAll();
+		dayScheduleRepository.deleteAll();
+		return "Success delete all timeSchedule";
 	}
 
 	@Transactional
@@ -85,43 +101,10 @@ public class TimeScheduleService {
 	@Transactional
 	public ToDoScheduleResponse upDateToDoSchedule(Long id, ToDoScheduleRequest toDoScheduleRequest) {
 		ToDoSchedule toDoSchedule = toDoScheduleRepository.getReferenceById(id);
-		toDoSchedule.update(toDoSchedule.getContent(), toDoScheduleRequest.isCheckTodo(),
+		toDoSchedule.update(toDoScheduleRequest.getContent(), toDoScheduleRequest.isCheckTodo(),
 			toDoScheduleRequest.getStartTime(), toDoScheduleRequest.getEndTime());
 		return ToDoScheduleResponse.toDto(toDoSchedule);
 	}
-
-//	@Transactional
-//	public DayScheduleResponse saveToDo(DayScheduleRequest scheduleRequest) {
-//
-//		User user = userRepository.findByUsername(scheduleRequest.getUserName());
-//		DaySchedule daySchedule = dayScheduleRepository.findByDateAndUser_Username(scheduleRequest.getDate(),scheduleRequest.getUserName());
-//		ToDoSchedule toDoSchedule = new ToDoSchedule(scheduleRequest.getContent(),
-//			scheduleRequest.isCheckTodo(), scheduleRequest.getStartTime(),
-//			scheduleRequest.getEndTime());
-//
-//		if (daySchedule == null) {
-//			DaySchedule newDaySchedule = new DaySchedule(scheduleRequest.getToday(),
-//				scheduleRequest.getTomorrow(), scheduleRequest.getDate());
-//			daySchedule = newDaySchedule;
-//			daySchedule.setUser(user);
-//		}
-//
-//		daySchedule.addToDoSchedules(toDoSchedule);
-//
-//		DayScheduleResponse dayScheduleResponse = DayScheduleResponse.toDto(daySchedule);
-//		return dayScheduleResponse;
-//	}
-//
-//	@Transactional
-//	public List<DayScheduleResponse> getWeekSchedule(List<String> date, String userName) {
-//		List<DayScheduleResponse> dayScheduleResponses = new ArrayList<>();
-//		for (String s : date) {
-//			dayScheduleResponses.add(DayScheduleResponse.toDto(dayScheduleRepository.findByDateAndUser_Username(s, userName)));
-//
-//		}
-//		return dayScheduleResponses;
-//
-//	}
 
 
 }

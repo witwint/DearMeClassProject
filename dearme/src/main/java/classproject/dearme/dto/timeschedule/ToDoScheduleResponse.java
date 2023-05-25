@@ -27,6 +27,9 @@ public class ToDoScheduleResponse {
 	private String endTime;
 
 	public static ToDoScheduleResponse toDto(ToDoSchedule toDoSchedule) {
+		if (toDoSchedule == null) {
+			return null;
+		}
 		return ToDoScheduleResponse.builder()
 			.id(toDoSchedule.getId())
 			.content(toDoSchedule.getContent())

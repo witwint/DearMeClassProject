@@ -27,6 +27,9 @@ public class DayScheduleResponse {
 	private List<ToDoScheduleResponse> toDo;
 
 	public static DayScheduleResponse toDto(DaySchedule daySchedule) {
+		if (daySchedule == null) {
+			return null;
+		}
 		DayScheduleResponse dayScheduleResponse = DayScheduleResponse.builder()
 			.id(daySchedule.getId())
 			.today(daySchedule.getToday())
@@ -38,7 +41,7 @@ public class DayScheduleResponse {
 		return dayScheduleResponse;
 	}
 
-	public void addToDoScheduleResponse(ToDoScheduleResponse toDoScheduleResponse) {
-		toDo.add(toDoScheduleResponse);
-	}
+//	public void addToDoScheduleResponse(ToDoScheduleResponse toDoScheduleResponse) {
+//		toDo.add(toDoScheduleResponse);
+//	}
 }

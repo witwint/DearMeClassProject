@@ -5,6 +5,7 @@ import classproject.dearme.domain.schedule.Schedule;
 import classproject.dearme.domain.user.User;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -43,7 +44,7 @@ public class DaySchedule extends BaseEntity {
 	private String date;
 
 	@OneToMany
-	private List<ToDoSchedule> toDoSchedules = new ArrayList<>();;
+	private List<ToDoSchedule> toDoSchedules = new ArrayList<>();
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
@@ -64,5 +65,9 @@ public class DaySchedule extends BaseEntity {
 
 	public void addToDoSchedules(ToDoSchedule toDoSchedule) {
 		this.toDoSchedules.add(toDoSchedule);
+	}
+
+	public void deleteToDoSchedule(ToDoSchedule toDoSchedule) {
+		this.toDoSchedules.remove(toDoSchedule);
 	}
 }
