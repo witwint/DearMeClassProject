@@ -1,8 +1,6 @@
 package classproject.dearme.dto.timeschedule;
 
 import classproject.dearme.domain.timeschedule.ToDoSchedule;
-import classproject.dearme.domain.user.Friend;
-import classproject.dearme.dto.user.FriendDto;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
