@@ -9,7 +9,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@ApiModel(value = "day 스케줄 Response")
+@ApiModel(value = "day 스케줄 Response/ ")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

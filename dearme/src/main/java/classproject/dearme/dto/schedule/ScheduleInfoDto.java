@@ -14,7 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 
-@ApiModel(value = "스케줄 DTO date=날짜 week=요일")
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

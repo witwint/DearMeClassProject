@@ -13,7 +13,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@ApiModel(value = "할일 DTO content=내용 checkTodo=체크여부 startTime=시작시간 endTime=끝시간 scheduleId=스케줄요일Id")
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

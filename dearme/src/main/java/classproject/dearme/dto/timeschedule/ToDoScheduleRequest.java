@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@ApiModel(value = "todo 스케줄 Requset")
+@ApiModel(value = "todo 스케줄 Requset / dayScheduleId:속할스케줄id식별자 , content:할일내용, checkTodo:체크표시, startTime:시작시작, endTime:끝시간")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
