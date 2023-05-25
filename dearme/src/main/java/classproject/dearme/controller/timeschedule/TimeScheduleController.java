@@ -5,6 +5,8 @@ import classproject.dearme.dto.timeschedule.ToDoScheduleRequest;
 import classproject.dearme.response.Response;
 import classproject.dearme.service.timeschedule.TimeScheduleService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -47,6 +49,31 @@ public class TimeScheduleController {
 	@ApiOperation(
 		value = "일주일 단위 날짜 찾기",
 		notes = "기준 요일을 넣으면 그날부터 7일간의 일정을 보여주는 API")
+	@ApiImplicitParams(
+		{
+			@ApiImplicitParam(
+				name = "userName"
+				, value = "사용자이름"
+				, required = true
+			),
+			@ApiImplicitParam(
+				name = "year"
+				, value = "연도"
+				, required = true
+			),
+			@ApiImplicitParam(
+				name = "month"
+				, value = "월"
+				, required = true
+			),
+			@ApiImplicitParam(
+				name = "day"
+				, value = "일"
+				, required = true
+			)
+		}
+	)
+
 	@GetMapping("/{userName}/{year}/{month}/{day}")
 	@ResponseStatus(HttpStatus.OK)
 	public Response getWeekSchedule(@PathVariable String userName, @PathVariable int year,
@@ -57,6 +84,11 @@ public class TimeScheduleController {
 	@ApiOperation(
 		value = "스케줄 삭제",
 		notes = "스케줄을 삭제하는 하위 Todo도 찾을수없게됩니다. API")
+	@ApiImplicitParam(
+		name = "id"
+		, value = "스케줄 id"
+		, required = true
+	)
 	@DeleteMapping("/day/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public Response deleteDaySchedule(@PathVariable Long id) {
@@ -66,6 +98,11 @@ public class TimeScheduleController {
 	@ApiOperation(
 		value = "일정 삭제",
 		notes = "일정을 삭제하는 API")
+	@ApiImplicitParam(
+		name = "id"
+		, value = "할일 id"
+		, required = true
+	)
 	@DeleteMapping("/todo/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public Response deleteToDoSchedule(@PathVariable Long id) {
@@ -84,6 +121,11 @@ public class TimeScheduleController {
 	@ApiOperation(
 		value = "스케줄 수정",
 		notes = "스케줄을 편집한는 API")
+	@ApiImplicitParam(
+		name = "id"
+		, value = "스케줄 id"
+		, required = true
+	)
 	@PatchMapping("/day/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public Response upDateDaySchedule(@PathVariable Long id,
@@ -94,6 +136,11 @@ public class TimeScheduleController {
 	@ApiOperation(
 		value = "일정 수정",
 		notes = "일정을 수정하는 API")
+	@ApiImplicitParam(
+		name = "id"
+		, value = "할일 id"
+		, required = true
+	)
 	@PatchMapping("/todo/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public Response upDateToDoSchedule(@PathVariable Long id,

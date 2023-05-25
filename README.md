@@ -36,3 +36,15 @@ https://europani.github.io/aws/2022/03/03/004-spring-s3.html
 `com.amazonaws.SdkClientException: Failed to connect to service endpoint: `
 aws sdk 에러가 나는 이유는, build.gradle에, spring-cloud-starter-aws 의존성 주입시 로컬환경은, aws환경이 아니기때문에 나는 에러라고 한다.
 aws환경에서 실행시 아무문제가 없
+
+## 스웨거 오류
+요청@RequestBody 설명 너무 길면 아에안뜨고 오류남 
+```
+@ApiModelProperty(value = "유저 이름")
+	private String userName;
+  
+```
+변수에는 따로
+
+@PathVariable 정보입력
+https://velog.io/@gillog/Swagger-UI-Annotation-%EC%84%A4%EB%AA%85
