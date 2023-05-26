@@ -2,7 +2,6 @@ package classproject.dearme.domain.diary;
 
 import classproject.dearme.domain.base.BaseEntity;
 import classproject.dearme.domain.user.User;
-import classproject.dearme.dto.diary.DiaryInfoDto;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -40,17 +39,21 @@ public class Diary extends BaseEntity {
 
 	private String imageType;
 
+	private String title;
+
+	private String color;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	public static Diary getDiary(DiaryInfoDto diaryInfoDto, User user) {
-		return Diary.builder()
-			.coordinateX(diaryInfoDto.getCoordinateX())
-			.coordinateY(diaryInfoDto.getCoordinateY())
-			.imageType(diaryInfoDto.getImageType())
-			.user(user)
-			.build();
+	public Diary(int coordinateX, int coordinateY, String imageType, String title, String color,
+		User user) {
+		this.coordinateX = coordinateX;
+		this.coordinateY = coordinateY;
+		this.imageType = imageType;
+		this.title = title;
+		this.color = color;
+		this.user = user;
 	}
-
 }

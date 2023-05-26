@@ -2,7 +2,8 @@ package classproject.dearme.service.timecapsule;
 
 import classproject.dearme.domain.timecapsule.TimeCapsule;
 import classproject.dearme.domain.user.User;
-import classproject.dearme.dto.timecapsule.TimeCapsuleInfoDto;
+import classproject.dearme.dto.timecapsule.TimeCapsuleRequest;
+import classproject.dearme.dto.timecapsule.TimeCapsuleResponse;
 import classproject.dearme.repository.timecapsule.TimeCapsuleRepository;
 import classproject.dearme.repository.user.UserRepository;
 import java.util.ArrayList;
@@ -21,20 +22,21 @@ public class TimeCapsuleService {
 	private final UserRepository userRepository;
 
 	@Transactional
-	public TimeCapsuleInfoDto save(TimeCapsuleInfoDto timeCapsuleInfoDto) {
-		User user = userRepository.findByUsername(timeCapsuleInfoDto.getUserName());
-		TimeCapsule timeCapsule = TimeCapsule.getTimeCapsule(timeCapsuleInfoDto, user);
+	public TimeCapsuleResponse save(TimeCapsuleRequest timeCapsuleRequest) {
+		User user = userRepository.findByUsername(timeCapsuleRequest.getUserName());
+		TimeCapsule timeCapsule = new TimeCapsule(user, timeCapsuleRequest.getToDay(),
+			timeCapsuleRequest.getNextDay(), timeCapsuleRequest.getContent());
 		timeCapsuleRepository.save(timeCapsule);
-		return TimeCapsuleInfoDto.toDto(timeCapsule);
+		return TimeCapsuleResponse.toDto(timeCapsule);
 	}
 
 	@Transactional
-	public List<TimeCapsuleInfoDto> findAll(String username) {
+	public List<TimeCapsuleResponse> findAll(String username) {
 		User user = userRepository.findByUsername(username);
 		List<TimeCapsule> resultDomain = timeCapsuleRepository.findByUser(user);
-		List<TimeCapsuleInfoDto> result = new ArrayList<>();
+		List<TimeCapsuleResponse> result = new ArrayList<>();
 		for (TimeCapsule timeCapsule : resultDomain) {
-			result.add(TimeCapsuleInfoDto.toDto(timeCapsule));
+			result.add(TimeCapsuleResponse.toDto(timeCapsule));
 		}
 		return result;
 

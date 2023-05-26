@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ToDoScheduleResponse {
 
-	private Long id;
+	private Long todoId;
 
 	private String content;
 
@@ -29,7 +29,7 @@ public class ToDoScheduleResponse {
 			return null;
 		}
 		return ToDoScheduleResponse.builder()
-			.id(toDoSchedule.getId())
+			.todoId(toDoSchedule.getId())
 			.content(toDoSchedule.getContent())
 			.checkTodo(toDoSchedule.isCheckTodo())
 			.startTime(toDoSchedule.getStartTime())

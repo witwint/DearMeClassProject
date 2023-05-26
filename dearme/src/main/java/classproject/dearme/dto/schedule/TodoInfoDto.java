@@ -1,13 +1,6 @@
 package classproject.dearme.dto.schedule;
 
-import classproject.dearme.domain.schedule.Schedule;
 import classproject.dearme.domain.schedule.ToDo;
-import classproject.dearme.domain.timecapsule.TimeCapsule;
-import classproject.dearme.dto.timecapsule.TimeCapsuleInfoDto;
-import io.swagger.annotations.ApiModel;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

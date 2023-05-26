@@ -2,8 +2,6 @@ package classproject.dearme.domain.timecapsule;
 
 import classproject.dearme.domain.base.BaseEntity;
 import classproject.dearme.domain.user.User;
-import classproject.dearme.dto.timecapsule.TimeCapsuleInfoDto;
-import classproject.dearme.dto.user.UserCreateDto;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -44,15 +42,10 @@ public class TimeCapsule extends BaseEntity {
 
 	private String content;
 
-
-	public static TimeCapsule getTimeCapsule(TimeCapsuleInfoDto timeCapsuleInfoDto, User user) {
-		return TimeCapsule.builder()
-			.user(user)
-			.toDay(timeCapsuleInfoDto.getToDay())
-			.nextDay(timeCapsuleInfoDto.getNextDay())
-			.content(timeCapsuleInfoDto.getContent())
-			.build();
+	public TimeCapsule(User user, String toDay, String nextDay, String content) {
+		this.user = user;
+		this.toDay = toDay;
+		this.nextDay = nextDay;
+		this.content = content;
 	}
-
-
 }

@@ -1,6 +1,7 @@
 package classproject.dearme.controller.timecapsule;
 
-import classproject.dearme.dto.timecapsule.TimeCapsuleInfoDto;
+
+import classproject.dearme.dto.timecapsule.TimeCapsuleRequest;
 import classproject.dearme.response.Response;
 import classproject.dearme.service.timecapsule.TimeCapsuleService;
 import io.swagger.annotations.Api;
@@ -30,8 +31,8 @@ public class TimeCapsuleController {
 		notes = "새로 타임캡슐을 등록하는 API")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Response saveTimeCapsule(@RequestBody TimeCapsuleInfoDto timeCapsuleInfoDto) {
-		return Response.success(timeCapsuleService.save(timeCapsuleInfoDto));
+	public Response saveTimeCapsule(@RequestBody TimeCapsuleRequest timeCapsuleRequest) {
+		return Response.success(timeCapsuleService.save(timeCapsuleRequest));
 	}
 
 	@ApiOperation(

@@ -1,6 +1,6 @@
 package classproject.dearme.controller.diary;
 
-import classproject.dearme.dto.diary.DiaryInfoDto;
+import classproject.dearme.dto.diary.DiaryRequest;
 import classproject.dearme.response.Response;
 import classproject.dearme.service.diary.DiaryService;
 import io.swagger.annotations.Api;
@@ -30,8 +30,8 @@ public class Diary {
 		notes = "다이어리를 저장하는 API")
 	@PostMapping
 	@ResponseStatus(HttpStatus.OK)
-	public Response save(@RequestBody DiaryInfoDto diaryInfoDto) {
-		return Response.success(diaryService.save(diaryInfoDto));
+	public Response save(@RequestBody DiaryRequest diaryRequest) {
+		return Response.success(diaryService.save(diaryRequest));
 	}
 
 	@ApiOperation(
@@ -46,10 +46,10 @@ public class Diary {
 	@ApiOperation(
 		value = "다이어리 업데이트",
 		notes = "다이어리를 수정하는 API")
-	@PatchMapping
+	@PatchMapping("/{diaryId}")
 	@ResponseStatus(HttpStatus.OK)
-	public Response updateDiaryInfo(@RequestBody DiaryInfoDto diaryInfoDto) {
-		return Response.success(diaryService.update(diaryInfoDto));
+	public Response updateDiaryInfo(@RequestBody DiaryRequest diaryRequest, @PathVariable Long diaryId) {
+		return Response.success(diaryService.update(diaryRequest, diaryId));
 	}
 
 	@ApiOperation(

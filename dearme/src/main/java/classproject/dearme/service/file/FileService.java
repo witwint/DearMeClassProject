@@ -1,9 +1,6 @@
 package classproject.dearme.service.file;
 
-import classproject.dearme.domain.diary.Diary;
 import classproject.dearme.domain.uploadfile.UploadFile;
-import classproject.dearme.domain.user.User;
-import classproject.dearme.dto.diary.DiaryInfoDto;
 import classproject.dearme.dto.file.UploadFileDto;
 import classproject.dearme.repository.file.FileRepository;
 import lombok.RequiredArgsConstructor;

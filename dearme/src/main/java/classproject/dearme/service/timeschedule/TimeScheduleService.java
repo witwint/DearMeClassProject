@@ -106,5 +106,15 @@ public class TimeScheduleService {
 		return ToDoScheduleResponse.toDto(toDoSchedule);
 	}
 
+	@Transactional
+	public DayScheduleResponse searchDayByUserNameAndDate(String userName, int year, int month,
+		int day) {
+		String searchDay = LocalDate.of(year, month, day).toString();
+		DaySchedule daySchedule = dayScheduleRepository.findByUser_UsernameAndDate(userName,
+			searchDay);
+		return DayScheduleResponse.toDto(daySchedule);
+
+	}
+
 
 }

@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class DayScheduleResponse {
 
-	private Long id;
+	private Long dayId;
 
 	private String today;
 
@@ -31,7 +31,7 @@ public class DayScheduleResponse {
 			return null;
 		}
 		DayScheduleResponse dayScheduleResponse = DayScheduleResponse.builder()
-			.id(daySchedule.getId())
+			.dayId(daySchedule.getId())
 			.today(daySchedule.getToday())
 			.tomorrow(daySchedule.getTomorrow())
 			.date(daySchedule.getDate())

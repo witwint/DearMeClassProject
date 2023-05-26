@@ -147,4 +147,39 @@ public class TimeScheduleController {
 		@RequestBody ToDoScheduleRequest toDoScheduleRequest) {
 		return Response.success(timeScheduleService.upDateToDoSchedule(id, toDoScheduleRequest));
 	}
+
+	@ApiOperation(
+		value = "하루 단위 날짜 찾기",
+		notes = "기준 요일을 넣으면 그날의 일정을 보여주는 API")
+	@ApiImplicitParams(
+		{
+			@ApiImplicitParam(
+				name = "userName"
+				, value = "사용자이름"
+				, required = true
+			),
+			@ApiImplicitParam(
+				name = "year"
+				, value = "연도"
+				, required = true
+			),
+			@ApiImplicitParam(
+				name = "month"
+				, value = "월"
+				, required = true
+			),
+			@ApiImplicitParam(
+				name = "day"
+				, value = "일"
+				, required = true
+			)
+		}
+	)
+
+	@GetMapping("/search/{userName}/{year}/{month}/{day}")
+	@ResponseStatus(HttpStatus.OK)
+	public Response getSearchSchedule(@PathVariable String userName, @PathVariable int year,
+		@PathVariable int month, @PathVariable int day) {
+		return Response.success(timeScheduleService.searchDayByUserNameAndDate(userName, year, month, day));
+	}
 }
