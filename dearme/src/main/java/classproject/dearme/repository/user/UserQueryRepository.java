@@ -1,7 +1,7 @@
 package classproject.dearme.repository.user;
 
-import classproject.dearme.domain.user.QUser;
-import classproject.dearme.domain.user.User;
+import classproject.dearme.domain.user.QUsers;
+import classproject.dearme.domain.user.Users;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
@@ -18,16 +18,16 @@ public class UserQueryRepository {
 		this.query = new JPAQueryFactory(entityManager);
 	}
 
-	public List<User> findSearchAll(String word) {
-		return query.select(QUser.user)
-			.from(QUser.user)
+	public List<Users> findSearchAll(String word) {
+		return query.select(QUsers.users)
+			.from(QUsers.users)
 			.where(likeUserName(word))
 			.fetch();
 	}
 
 	private BooleanExpression likeUserName(String userName) {
 		if (StringUtils.hasText(userName)) {
-			return QUser.user.username.like("%" + userName + "%");
+			return QUsers.users.username.like("%" + userName + "%");
 		}
 		return null;
 	}

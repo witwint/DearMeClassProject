@@ -1,7 +1,7 @@
 package classproject.dearme.domain.timecapsule;
 
 import classproject.dearme.domain.base.BaseEntity;
-import classproject.dearme.domain.user.User;
+import classproject.dearme.domain.user.Users;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,7 +34,7 @@ public class TimeCapsule extends BaseEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	private User user;
+	private Users users;
 
 	private String toDay;
 
@@ -42,8 +42,8 @@ public class TimeCapsule extends BaseEntity {
 
 	private String content;
 
-	public TimeCapsule(User user, String toDay, String nextDay, String content) {
-		this.user = user;
+	public TimeCapsule(Users users, String toDay, String nextDay, String content) {
+		this.users = users;
 		this.toDay = toDay;
 		this.nextDay = nextDay;
 		this.content = content;

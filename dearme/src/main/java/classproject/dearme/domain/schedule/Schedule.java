@@ -1,12 +1,8 @@
 package classproject.dearme.domain.schedule;
 
 import classproject.dearme.domain.base.BaseEntity;
-import classproject.dearme.domain.user.User;
+import classproject.dearme.domain.user.Users;
 import classproject.dearme.dto.schedule.ScheduleInfoDto;
-import classproject.dearme.dto.schedule.TodoInfoDto;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,17 +40,17 @@ public class Schedule extends BaseEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	private User user;
+	private Users users;
 
 //	@OneToMany(cascade = CascadeType.ALL)
 //	public List<ToDo> toDos = new ArrayList<ToDo>();
 
 
-	public static Schedule getSchedule(ScheduleInfoDto scheduleInfoDto, User user) {
+	public static Schedule getSchedule(ScheduleInfoDto scheduleInfoDto, Users users) {
 		return Schedule.builder()
 			.date(scheduleInfoDto.getDate())
 			.week(scheduleInfoDto.getWeek())
-			.user(user)
+			.users(users)
 			.build();
 	}
 

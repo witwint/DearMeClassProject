@@ -2,12 +2,12 @@ package classproject.dearme.service.schedule;
 
 import classproject.dearme.domain.schedule.Schedule;
 import classproject.dearme.domain.schedule.ToDo;
-import classproject.dearme.domain.user.User;
+import classproject.dearme.domain.user.Users;
 import classproject.dearme.dto.schedule.ScheduleInfoDto;
 import classproject.dearme.dto.schedule.TodoInfoDto;
 import classproject.dearme.repository.schedule.ScheduleRepository;
 import classproject.dearme.repository.schedule.ToDoRepository;
-import classproject.dearme.repository.user.UserRepository;
+import classproject.dearme.repository.user.UsersRepository;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -22,12 +22,12 @@ public class ScheduleService {
 
 	private final ScheduleRepository scheduleRepository;
 	private final ToDoRepository toDoRepository;
-	private final UserRepository userRepository;
+	private final UsersRepository usersRepository;
 
 	@Transactional
 	public ScheduleInfoDto save(ScheduleInfoDto scheduleInfoDto) {
-		User user = userRepository.findByUsername(scheduleInfoDto.getUsername());
-		Schedule schedule = Schedule.getSchedule(scheduleInfoDto, user);
+		Users users = usersRepository.findByUsername(scheduleInfoDto.getUsername()).orElse(null);
+		Schedule schedule = Schedule.getSchedule(scheduleInfoDto, users);
 		scheduleRepository.save(schedule);
 		return ScheduleInfoDto.toDto(schedule);
 	}
@@ -64,7 +64,7 @@ public class ScheduleService {
 
 	@Transactional
 	public List<ScheduleInfoDto> getScheduleInfo(String username) {
-		List<Schedule> resultDomain =  scheduleRepository.findByUser_username(username);
+		List<Schedule> resultDomain =  scheduleRepository.findByUsers_username(username);
 		List<ScheduleInfoDto> result = new ArrayList<>();
 		for (Schedule schedule : resultDomain) {
 			List<ToDo> toDos = toDoRepository.findBySchedule(schedule);

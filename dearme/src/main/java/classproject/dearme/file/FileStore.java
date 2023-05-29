@@ -26,7 +26,7 @@ public class FileStore {
 	@Value("${file.dir}")
 	private String fileDir;
 
-	public String thisPath = System.getProperty("user.dir");
+	public String thisPath = System.getProperty("users.dir");
 
 
 

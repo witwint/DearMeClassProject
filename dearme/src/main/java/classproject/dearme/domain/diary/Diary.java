@@ -1,7 +1,7 @@
 package classproject.dearme.domain.diary;
 
 import classproject.dearme.domain.base.BaseEntity;
-import classproject.dearme.domain.user.User;
+import classproject.dearme.domain.user.Users;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -45,15 +45,15 @@ public class Diary extends BaseEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	private User user;
+	private Users users;
 
 	public Diary(int coordinateX, int coordinateY, String imageType, String title, String color,
-		User user) {
+		Users users) {
 		this.coordinateX = coordinateX;
 		this.coordinateY = coordinateY;
 		this.imageType = imageType;
 		this.title = title;
 		this.color = color;
-		this.user = user;
+		this.users = users;
 	}
 }

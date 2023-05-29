@@ -1,13 +1,6 @@
 package classproject.dearme.dto.schedule;
 
 import classproject.dearme.domain.schedule.Schedule;
-import classproject.dearme.domain.schedule.ToDo;
-import classproject.dearme.domain.timecapsule.TimeCapsule;
-import classproject.dearme.domain.user.User;
-import io.swagger.annotations.ApiModel;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,7 +28,7 @@ public class ScheduleInfoDto {
 			.id(schedule.getId())
 			.date(schedule.getDate())
 			.week(schedule.getWeek())
-			.username(schedule.getUser().getUsername())
+			.username(schedule.getUsers().getUsername())
 			.build();
 	}
 

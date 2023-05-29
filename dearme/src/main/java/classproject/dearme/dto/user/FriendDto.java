@@ -1,13 +1,12 @@
 package classproject.dearme.dto.user;
 
 import classproject.dearme.domain.user.Friend;
-import classproject.dearme.domain.user.User;
+import classproject.dearme.domain.user.Users;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @ApiModel(value = "친구정보 DTO")
 @AllArgsConstructor
@@ -16,9 +15,9 @@ import lombok.Setter;
 @Builder
 public class FriendDto {
 
-	private User follower;
+	private Users follower;
 
-	private User followee;
+	private Users followee;
 
 
 	public static FriendDto toDto(Friend friend) {

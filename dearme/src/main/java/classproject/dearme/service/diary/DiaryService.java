@@ -1,11 +1,11 @@
 package classproject.dearme.service.diary;
 
 import classproject.dearme.domain.diary.Diary;
-import classproject.dearme.domain.user.User;
+import classproject.dearme.domain.user.Users;
 import classproject.dearme.dto.diary.DiaryRequest;
 import classproject.dearme.dto.diary.DiaryResponse;
 import classproject.dearme.repository.diary.DiaryRepository;
-import classproject.dearme.repository.user.UserRepository;
+import classproject.dearme.repository.user.UsersRepository;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -19,13 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class DiaryService {
 
 	private final DiaryRepository diaryRepository;
-	private final UserRepository userRepository;
+	private final UsersRepository usersRepository;
 
 	@Transactional
 	public DiaryResponse save(DiaryRequest diaryRequest) {
-		User user = userRepository.findByUsername(diaryRequest.getUsername());
+		Users users = usersRepository.findByUsername(diaryRequest.getUsername()).orElse(null);
 		Diary diary = new Diary(diaryRequest.getCoordinateX(), diaryRequest.getCoordinateY(),
-			diaryRequest.getImageType(), diaryRequest.getTitle(), diaryRequest.getColor(), user);
+			diaryRequest.getImageType(), diaryRequest.getTitle(), diaryRequest.getColor(), users);
 		diaryRepository.save(diary);
 		return DiaryResponse.toDto(diary);
 	}
@@ -43,8 +43,8 @@ public class DiaryService {
 
 	@Transactional
 	public List<DiaryResponse> findAll(String username) {
-		User user = userRepository.findByUsername(username);
-		List<Diary> resultDomain = diaryRepository.findByUser(user);
+		Users users = usersRepository.findByUsername(username).orElse(null);
+		List<Diary> resultDomain = diaryRepository.findByUsers(users);
 		List<DiaryResponse> result = new ArrayList<>();
 		for (Diary diary : resultDomain) {
 			result.add(DiaryResponse.toDto(diary));

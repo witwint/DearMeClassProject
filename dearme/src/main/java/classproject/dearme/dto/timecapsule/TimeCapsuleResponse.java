@@ -1,9 +1,7 @@
 package classproject.dearme.dto.timecapsule;
 
 
-import classproject.dearme.domain.diary.Diary;
 import classproject.dearme.domain.timecapsule.TimeCapsule;
-import classproject.dearme.dto.diary.DiaryResponse;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -36,7 +34,7 @@ public class TimeCapsuleResponse {
 	public static TimeCapsuleResponse toDto(TimeCapsule timeCapsule) {
 		TimeCapsuleResponse timeCapsuleResponse = TimeCapsuleResponse.builder()
 			.timeCapsuleId(timeCapsule.getId())
-			.userName(timeCapsule.getUser().getUsername())
+			.userName(timeCapsule.getUsers().getUsername())
 			.toDay(timeCapsule.getToDay())
 			.nextDay(timeCapsule.getNextDay())
 			.content(timeCapsule.getContent())

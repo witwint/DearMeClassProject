@@ -1,11 +1,11 @@
 package classproject.dearme.service.timecapsule;
 
 import classproject.dearme.domain.timecapsule.TimeCapsule;
-import classproject.dearme.domain.user.User;
+import classproject.dearme.domain.user.Users;
 import classproject.dearme.dto.timecapsule.TimeCapsuleRequest;
 import classproject.dearme.dto.timecapsule.TimeCapsuleResponse;
 import classproject.dearme.repository.timecapsule.TimeCapsuleRepository;
-import classproject.dearme.repository.user.UserRepository;
+import classproject.dearme.repository.user.UsersRepository;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -19,12 +19,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class TimeCapsuleService {
 
 	private final TimeCapsuleRepository timeCapsuleRepository;
-	private final UserRepository userRepository;
+	private final UsersRepository usersRepository;
 
 	@Transactional
 	public TimeCapsuleResponse save(TimeCapsuleRequest timeCapsuleRequest) {
-		User user = userRepository.findByUsername(timeCapsuleRequest.getUserName());
-		TimeCapsule timeCapsule = new TimeCapsule(user, timeCapsuleRequest.getToDay(),
+		Users users = usersRepository.findByUsername(timeCapsuleRequest.getUserName()).orElse(null);
+		TimeCapsule timeCapsule = new TimeCapsule(users, timeCapsuleRequest.getToDay(),
 			timeCapsuleRequest.getNextDay(), timeCapsuleRequest.getContent());
 		timeCapsuleRepository.save(timeCapsule);
 		return TimeCapsuleResponse.toDto(timeCapsule);
@@ -32,8 +32,8 @@ public class TimeCapsuleService {
 
 	@Transactional
 	public List<TimeCapsuleResponse> findAll(String username) {
-		User user = userRepository.findByUsername(username);
-		List<TimeCapsule> resultDomain = timeCapsuleRepository.findByUser(user);
+		Users users = usersRepository.findByUsername(username).orElse(null);
+		List<TimeCapsule> resultDomain = timeCapsuleRepository.findByUsers(users);
 		List<TimeCapsuleResponse> result = new ArrayList<>();
 		for (TimeCapsule timeCapsule : resultDomain) {
 			result.add(TimeCapsuleResponse.toDto(timeCapsule));

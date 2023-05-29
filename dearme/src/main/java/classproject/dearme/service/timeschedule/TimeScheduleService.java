@@ -2,18 +2,17 @@ package classproject.dearme.service.timeschedule;
 
 import classproject.dearme.domain.timeschedule.DaySchedule;
 import classproject.dearme.domain.timeschedule.ToDoSchedule;
-import classproject.dearme.domain.user.User;
+import classproject.dearme.domain.user.Users;
 import classproject.dearme.dto.timeschedule.DayScheduleResponse;
 import classproject.dearme.dto.timeschedule.DayScheduleRequest;
 import classproject.dearme.dto.timeschedule.ToDoScheduleRequest;
 import classproject.dearme.dto.timeschedule.ToDoScheduleResponse;
 import classproject.dearme.repository.timeschedule.DayScheduleRepository;
 import classproject.dearme.repository.timeschedule.ToDoScheduleRepository;
-import classproject.dearme.repository.user.UserRepository;
+import classproject.dearme.repository.user.UsersRepository;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -27,14 +26,14 @@ public class TimeScheduleService {
 	private final DayScheduleRepository dayScheduleRepository;
 	private final ToDoScheduleRepository toDoScheduleRepository;
 
-	private final UserRepository userRepository;
+	private final UsersRepository usersRepository;
 
 	@Transactional
 	public DayScheduleResponse saveDaySchedule(DayScheduleRequest dayScheduleRequest) {
-		User user = userRepository.findByUsername(dayScheduleRequest.getUserName());
-		log.info("user = {}", user.getUsername());
+		Users users = usersRepository.findByUsername(dayScheduleRequest.getUserName()).orElse(null);
+		log.info("users = {}", users.getUsername());
 		DaySchedule daySchedule = new DaySchedule(dayScheduleRequest.getToday(),
-			dayScheduleRequest.getTomorrow(), dayScheduleRequest.getDate(), user);
+			dayScheduleRequest.getTomorrow(), dayScheduleRequest.getDate(), users);
 		log.info("daySchedule = {}", daySchedule.getId());
 		dayScheduleRepository.save(daySchedule);
 		return DayScheduleResponse.toDto(daySchedule);
@@ -61,7 +60,7 @@ public class TimeScheduleService {
 		for (int i = 0; i < 7; i++) {
 			String result = baseDate.plusDays(i).toString();
 			dayScheduleResponses.add(DayScheduleResponse.toDto(
-				dayScheduleRepository.findByDateAndUser_Username(result, userName).orElse(null)));
+				dayScheduleRepository.findByDateAndUsers_Username(result, userName).orElse(null)));
 		}
 		return dayScheduleResponses;
 	}
@@ -110,7 +109,7 @@ public class TimeScheduleService {
 	public DayScheduleResponse searchDayByUserNameAndDate(String userName, int year, int month,
 		int day) {
 		String searchDay = LocalDate.of(year, month, day).toString();
-		DaySchedule daySchedule = dayScheduleRepository.findByUser_UsernameAndDate(userName,
+		DaySchedule daySchedule = dayScheduleRepository.findByUsers_UsernameAndDate(userName,
 			searchDay);
 		return DayScheduleResponse.toDto(daySchedule);
 

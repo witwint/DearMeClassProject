@@ -1,18 +1,15 @@
 package classproject.dearme.domain.uploadfile;
 
 import classproject.dearme.domain.base.BaseEntity;
-import classproject.dearme.domain.user.User;
+import classproject.dearme.domain.user.Users;
 import classproject.dearme.dto.file.UploadFileDto;
-import classproject.dearme.dto.user.UserCreateDto;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import lombok.AccessLevel;
@@ -43,10 +40,10 @@ public class UploadFile extends BaseEntity {
 	private String storeFileName;
 
 	@ManyToOne
-	private User userImages;
+	private Users usersImages;
 
 	@OneToOne(mappedBy = "attachFile")
-	private User userImage;
+	private Users usersImage;
 
 	public UploadFile(String uploadFileName, String storeFileName) {
 		this.uploadFileName = uploadFileName;

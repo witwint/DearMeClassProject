@@ -1,6 +1,6 @@
 package classproject.dearme.dto.user;
 
-import classproject.dearme.domain.user.User;
+import classproject.dearme.domain.user.Users;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,13 +25,13 @@ public class UserInfoDto {
 	private String image;
 
 
-	public static UserInfoDto toDto(User user) {
+	public static UserInfoDto toDto(Users users) {
 		return UserInfoDto.builder()
-			.username(user.getUsername())
-			.email(user.getEmail())
-			.phone(user.getPhone())
-			.content(user.getContent())
-			.image(user.getImage())
+			.username(users.getUsername())
+			.email(users.getEmail())
+			.phone(users.getPhone())
+			.content(users.getContent())
+			.image(users.getImage())
 			.build();
 	}
 

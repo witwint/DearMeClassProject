@@ -124,7 +124,7 @@ public class UserController {
 	//s3는 "file:"없어도됨
 	@ApiOperation(
 		value = "이미지 파일보는 주소",
-		notes = "응답으로 오는 데이터중 image 파일명이용해서  url + /user/images/ + image 파일명 src에 넣으면 사진이 보입니다.")
+		notes = "응답으로 오는 데이터중 image 파일명이용해서  url + /users/images/ + image 파일명 src에 넣으면 사진이 보입니다.")
 	@ResponseBody
 	@GetMapping("/images/{filename}")
 	public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
@@ -168,7 +168,7 @@ public class UserController {
 //	//이미지 소스보기
 //	@ApiOperation(
 //		value = "이미지 파일보는 주소",
-//		notes = "응답으로 오는 데이터중 attachFile파일명이용해서  url + /user/images/ + attachFile파일명 src에 넣으면 사진이 보입니다.")
+//		notes = "응답으로 오는 데이터중 attachFile파일명이용해서  url + /users/images/ + attachFile파일명 src에 넣으면 사진이 보입니다.")
 //	@ResponseBody
 //	@GetMapping("/images/{filename}")
 //	public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {

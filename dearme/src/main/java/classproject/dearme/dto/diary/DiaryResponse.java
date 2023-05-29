@@ -2,12 +2,8 @@ package classproject.dearme.dto.diary;
 
 
 import classproject.dearme.domain.diary.Diary;
-import classproject.dearme.domain.timeschedule.DaySchedule;
-import classproject.dearme.dto.timeschedule.DayScheduleResponse;
-import classproject.dearme.dto.timeschedule.ToDoScheduleResponse;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -45,7 +41,7 @@ public class DiaryResponse {
 	public static DiaryResponse toDto(Diary diary) {
 		DiaryResponse diaryResponse = DiaryResponse.builder()
 			.diaryId(diary.getId())
-			.username(diary.getUser().getUsername())
+			.username(diary.getUsers().getUsername())
 			.coordinateX(diary.getCoordinateX())
 			.coordinateY(diary.getCoordinateY())
 			.imageType(diary.getImageType())

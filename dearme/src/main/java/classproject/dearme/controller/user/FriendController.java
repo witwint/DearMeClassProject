@@ -81,8 +81,4 @@ public class FriendController {
 		return Response.success(friendService.deleteAll());
 	}
 
-
-
-
-
 }

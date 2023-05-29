@@ -1,11 +1,9 @@
 package classproject.dearme.domain.timeschedule;
 
 import classproject.dearme.domain.base.BaseEntity;
-import classproject.dearme.domain.schedule.Schedule;
-import classproject.dearme.domain.user.User;
+import classproject.dearme.domain.user.Users;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -48,13 +46,13 @@ public class DaySchedule extends BaseEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	private User user;
+	private Users users;
 
-	public DaySchedule(String today, String tomorrow, String date, User user) {
+	public DaySchedule(String today, String tomorrow, String date, Users users) {
 		this.today = today;
 		this.tomorrow = tomorrow;
 		this.date = date;
-		this.user = user;
+		this.users = users;
 	}
 
 	public void update(String today, String tomorrow, String date) {
