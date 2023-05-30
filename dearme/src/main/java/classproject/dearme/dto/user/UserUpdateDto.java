@@ -19,11 +19,13 @@ public class UserUpdateDto {
 
 	private String content;
 
-	private String image;
+	private String password;
 
-	private MultipartFile attachFile;
-
-	private List<MultipartFile> imageFiles;
+//	private String image;
+//
+//	private MultipartFile attachFile;
+//
+//	private List<MultipartFile> imageFiles;
 
 	private String email;
 

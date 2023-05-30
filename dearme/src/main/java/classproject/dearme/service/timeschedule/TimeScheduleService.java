@@ -41,27 +41,33 @@ public class TimeScheduleService {
 		return DayScheduleResponse.toDto(daySchedule);
 	}
 
-	@Transactional
-	public ToDoScheduleResponse saveToDoSchedule(ToDoScheduleRequest toDoScheduleRequest) {
-		DaySchedule daySchedule = dayScheduleRepository.getReferenceById(
-			toDoScheduleRequest.getDayScheduleId());
-		ToDoSchedule toDoSchedule = new ToDoSchedule(toDoScheduleRequest.getContent(),
-			toDoScheduleRequest.isCheckTodo(), toDoScheduleRequest.getStartTime(),
-			toDoScheduleRequest.getEndTime());
-		toDoScheduleRepository.save(toDoSchedule);
-		daySchedule.addToDoSchedules(toDoSchedule);
-		log.info("save todo at dat {}", daySchedule.getToDoSchedules().size());
-
-		return ToDoScheduleResponse.toDto(toDoSchedule);
-	}
+//	@Transactional
+//	public ToDoScheduleResponse saveToDoSchedule(ToDoScheduleRequest toDoScheduleRequest) {
+//		DaySchedule daySchedule = dayScheduleRepository.getReferenceById(
+//			toDoScheduleRequest.getDayScheduleId());
+//		ToDoSchedule toDoSchedule = new ToDoSchedule(toDoScheduleRequest.getContent(),
+//			toDoScheduleRequest.isCheckTodo(), toDoScheduleRequest.getStartTime(),
+//			toDoScheduleRequest.getEndTime());
+//		toDoScheduleRepository.save(toDoSchedule);
+//		daySchedule.addToDoSchedules(toDoSchedule);
+//		log.info("save todo at dat {}", daySchedule.getToDoSchedules().size());
+//
+//		return ToDoScheduleResponse.toDto(toDoSchedule);
+//	}
 
 	@Transactional
 	public List<ToDoScheduleResponse> saveListToDoSchedule(
 		ToDoScheduleListRequest toDoScheduleListRequest) {
+		DaySchedule daySchedule = dayScheduleRepository.findByDateAndUser_Username(
+			toDoScheduleListRequest.getDate(),
+			toDoScheduleListRequest.getUserName()).orElse(null);
+		User user = userRepository.findByUsername(toDoScheduleListRequest.getUserName());
+		if (daySchedule == null) {
+			daySchedule = new DaySchedule(null, null, toDoScheduleListRequest.getDate(), user);
+			dayScheduleRepository.save(daySchedule);
+		}
 		List<ToDoScheduleResponse> toDoScheduleResponses = new ArrayList<>();
 		for (ToDoScheduleRequest toDoScheduleRequest : toDoScheduleListRequest.getToDoScheduleRequestList()) {
-			DaySchedule daySchedule = dayScheduleRepository.getReferenceById(
-				toDoScheduleRequest.getDayScheduleId());
 			ToDoSchedule toDoSchedule = new ToDoSchedule(toDoScheduleRequest.getContent(),
 				toDoScheduleRequest.isCheckTodo(), toDoScheduleRequest.getStartTime(),
 				toDoScheduleRequest.getEndTime());

@@ -103,19 +103,19 @@ public class UserController {
 	@PatchMapping("/{username}")
 	@ResponseStatus(HttpStatus.OK)
 	public Response updateUserInfo(@ModelAttribute UserUpdateDto userUpdateDto) throws IOException {
-		UploadFileDto attachFile = null;
-		List<UploadFileDto> storeFiles = null;
-		if (userUpdateDto.getAttachFile() != null) {
-			attachFile = s3Uploader.upload(userUpdateDto.getAttachFile());
-			fileService.save(attachFile);
-		}
-		if (userUpdateDto.getImageFiles() != null) {
-			storeFiles = s3Uploader.uploads(userUpdateDto.getImageFiles());
-			for (UploadFileDto storeFile : storeFiles) {
-				fileService.save(storeFile);
-			}
-		}
-		UserInfoDto result = userService.updateUser(userUpdateDto, attachFile, storeFiles);
+//		UploadFileDto attachFile = null;
+//		List<UploadFileDto> storeFiles = null;
+//		if (userUpdateDto.getAttachFile() != null) {
+//			attachFile = s3Uploader.upload(userUpdateDto.getAttachFile());
+//			fileService.save(attachFile);
+//		}
+//		if (userUpdateDto.getImageFiles() != null) {
+//			storeFiles = s3Uploader.uploads(userUpdateDto.getImageFiles());
+//			for (UploadFileDto storeFile : storeFiles) {
+//				fileService.save(storeFile);
+//			}
+//		}
+		UserInfoDto result = userService.updateUser(userUpdateDto);
 		return Response.success(result);
 	}
 

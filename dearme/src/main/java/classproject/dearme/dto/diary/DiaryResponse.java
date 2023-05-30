@@ -41,6 +41,9 @@ public class DiaryResponse {
 	@ApiModelProperty(value = "다이어리 색깔")
 	private String color;
 
+	@ApiModelProperty(value = "다이어리 날짜")
+	private String date;
+
 
 	public static DiaryResponse toDto(Diary diary) {
 		DiaryResponse diaryResponse = DiaryResponse.builder()
@@ -51,6 +54,7 @@ public class DiaryResponse {
 			.imageType(diary.getImageType())
 			.title(diary.getTitle())
 			.color(diary.getColor())
+			.date(diary.getDate())
 			.build();
 
 		return diaryResponse;

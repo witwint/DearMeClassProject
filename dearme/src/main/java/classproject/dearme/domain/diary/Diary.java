@@ -43,17 +43,20 @@ public class Diary extends BaseEntity {
 
 	private String color;
 
+	private String date;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
 
 	public Diary(int coordinateX, int coordinateY, String imageType, String title, String color,
-		User user) {
+		String date, User user) {
 		this.coordinateX = coordinateX;
 		this.coordinateY = coordinateY;
 		this.imageType = imageType;
 		this.title = title;
 		this.color = color;
+		this.date = date;
 		this.user = user;
 	}
 }

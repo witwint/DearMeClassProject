@@ -59,21 +59,22 @@ public class UserService {
 
 	//회원 정보 업데이트
 	@Transactional
-	public UserInfoDto updateUser(UserUpdateDto updateDto, UploadFileDto uploadFileDto, List<UploadFileDto> uploadFileDtos) {
+	public UserInfoDto updateUser(UserUpdateDto updateDto) {
 
 		User findUser =  userRepository.findByUsername(updateDto.getUsername());
 		log.info("content{}", updateDto.getContent());
 		findUser.setContent(updateDto.getContent());
 		findUser.setEmail(updateDto.getEmail());
 		findUser.setPhone(updateDto.getPhone());
-		if (uploadFileDto == null) {
-			findUser.setImage(null);
-		} else {
-			findUser.setImage(uploadFileDto.getStoreFileName());
-
-		}
-		findUser.setAttachFile(UploadFile.getUploadFile(uploadFileDto));
-		findUser.setImageFiles(UploadFile.getUploadFileList(uploadFileDtos));
+		findUser.setPassword(updateDto.getPassword());
+//		if (uploadFileDto == null) {
+//			findUser.setImage(null);
+//		} else {
+//			findUser.setImage(uploadFileDto.getStoreFileName());
+//
+//		}
+//		findUser.setAttachFile(UploadFile.getUploadFile(uploadFileDto));
+//		findUser.setImageFiles(UploadFile.getUploadFileList(uploadFileDtos));
 		return toDto(findUser);
 	}
 

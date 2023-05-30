@@ -14,6 +14,13 @@ import lombok.NoArgsConstructor;
 @Getter
 @Builder
 public class ToDoScheduleListRequest {
+
+	@ApiModelProperty(value = "todo 스케줄의 리스트 유저")
+	String userName;
+
+	@ApiModelProperty(value = "todo 스케줄의 리스트 형태")
+	String date;
+
 	@ApiModelProperty(value = "todo 스케줄의 리스트 형태")
 	List<ToDoScheduleRequest> toDoScheduleRequestList;
 

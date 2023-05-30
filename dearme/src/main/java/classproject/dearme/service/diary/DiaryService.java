@@ -25,7 +25,7 @@ public class DiaryService {
 	public DiaryResponse save(DiaryRequest diaryRequest) {
 		User user = userRepository.findByUsername(diaryRequest.getUsername());
 		Diary diary = new Diary(diaryRequest.getCoordinateX(), diaryRequest.getCoordinateY(),
-			diaryRequest.getImageType(), diaryRequest.getTitle(), diaryRequest.getColor(), user);
+			diaryRequest.getImageType(), diaryRequest.getTitle(), diaryRequest.getColor(), diaryRequest.getDate(),user);
 		diaryRepository.save(diary);
 		return DiaryResponse.toDto(diary);
 	}
@@ -38,6 +38,7 @@ public class DiaryService {
 		findDiary.setImageType(diaryRequest.getImageType());
 		findDiary.setTitle(diaryRequest.getTitle());
 		findDiary.setColor(diaryRequest.getColor());
+		findDiary.setDate(diaryRequest.getDate());
 		return DiaryResponse.toDto(findDiary);
 	}
 

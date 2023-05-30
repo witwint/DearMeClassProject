@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ToDoScheduleRequest {
 
-	@ApiModelProperty(value = "속할스케줄id식별자")
-	private Long dayScheduleId;
+//	@ApiModelProperty(value = "속할스케줄id식별자")
+//	private Long dayScheduleId;
 
 	@ApiModelProperty(value = "할일내용")
 	private String content;

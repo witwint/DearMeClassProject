@@ -38,14 +38,14 @@ public class TimeScheduleController {
 		return Response.success(timeScheduleService.saveDaySchedule(dayScheduleRequest));
 	}
 
-	@ApiOperation(
-		value = "할일등록",
-		notes = "날짜 식별자를 기반으로 할일을 등록하는 API")
-	@PostMapping("/todo")
-	@ResponseStatus(HttpStatus.CREATED)
-	public Response saveToDoSchedule(@RequestBody ToDoScheduleRequest toDoScheduleRequest) {
-		return Response.success(timeScheduleService.saveToDoSchedule(toDoScheduleRequest));
-	}
+//	@ApiOperation(
+//		value = "할일등록",
+//		notes = "날짜 식별자를 기반으로 할일을 등록하는 API")
+//	@PostMapping("/todo")
+//	@ResponseStatus(HttpStatus.CREATED)
+//	public Response saveToDoSchedule(@RequestBody ToDoScheduleRequest toDoScheduleRequest) {
+//		return Response.success(timeScheduleService.saveToDoSchedule(toDoScheduleRequest));
+//	}
 
 	@ApiOperation(
 		value = "할일리스트등록",

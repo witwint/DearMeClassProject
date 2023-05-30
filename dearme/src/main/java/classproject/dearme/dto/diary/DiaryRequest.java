@@ -32,4 +32,7 @@ public class DiaryRequest {
 	@ApiModelProperty(value = "다이어리 색깔")
 	private String color;
 
+	@ApiModelProperty(value = "다이어리 날짜")
+	private String date;
+
 }

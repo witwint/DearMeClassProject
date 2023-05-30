@@ -22,7 +22,7 @@ public class UserInfoDto {
 
 	private String content;
 
-	private String image;
+	private String password;
 
 
 	public static UserInfoDto toDto(User user) {
@@ -31,7 +31,7 @@ public class UserInfoDto {
 			.email(user.getEmail())
 			.phone(user.getPhone())
 			.content(user.getContent())
-			.image(user.getImage())
+			.password(user.getPassword())
 			.build();
 	}
 
