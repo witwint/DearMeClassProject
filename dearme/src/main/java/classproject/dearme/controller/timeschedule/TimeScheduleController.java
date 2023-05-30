@@ -1,6 +1,7 @@
 package classproject.dearme.controller.timeschedule;
 
 import classproject.dearme.dto.timeschedule.DayScheduleRequest;
+import classproject.dearme.dto.timeschedule.ToDoScheduleListRequest;
 import classproject.dearme.dto.timeschedule.ToDoScheduleRequest;
 import classproject.dearme.response.Response;
 import classproject.dearme.service.timeschedule.TimeScheduleService;
@@ -44,6 +45,15 @@ public class TimeScheduleController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public Response saveToDoSchedule(@RequestBody ToDoScheduleRequest toDoScheduleRequest) {
 		return Response.success(timeScheduleService.saveToDoSchedule(toDoScheduleRequest));
+	}
+
+	@ApiOperation(
+		value = "할일리스트등록",
+		notes = "날짜 식별자를 기반으로 할일 리스트들을 등록하는 API")
+	@PostMapping("/todos")
+	@ResponseStatus(HttpStatus.CREATED)
+	public Response saveToDoSchedule(@RequestBody ToDoScheduleListRequest toDoScheduleRequest) {
+		return Response.success(timeScheduleService.saveListToDoSchedule(toDoScheduleRequest));
 	}
 
 	@ApiOperation(

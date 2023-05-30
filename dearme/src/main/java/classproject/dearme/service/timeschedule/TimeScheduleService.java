@@ -5,6 +5,7 @@ import classproject.dearme.domain.timeschedule.ToDoSchedule;
 import classproject.dearme.domain.user.User;
 import classproject.dearme.dto.timeschedule.DayScheduleResponse;
 import classproject.dearme.dto.timeschedule.DayScheduleRequest;
+import classproject.dearme.dto.timeschedule.ToDoScheduleListRequest;
 import classproject.dearme.dto.timeschedule.ToDoScheduleRequest;
 import classproject.dearme.dto.timeschedule.ToDoScheduleResponse;
 import classproject.dearme.repository.timeschedule.DayScheduleRepository;
@@ -52,6 +53,25 @@ public class TimeScheduleService {
 		log.info("save todo at dat {}", daySchedule.getToDoSchedules().size());
 
 		return ToDoScheduleResponse.toDto(toDoSchedule);
+	}
+
+	@Transactional
+	public List<ToDoScheduleResponse> saveListToDoSchedule(
+		ToDoScheduleListRequest toDoScheduleListRequest) {
+		List<ToDoScheduleResponse> toDoScheduleResponses = new ArrayList<>();
+		for (ToDoScheduleRequest toDoScheduleRequest : toDoScheduleListRequest.getToDoScheduleRequestList()) {
+			DaySchedule daySchedule = dayScheduleRepository.getReferenceById(
+				toDoScheduleRequest.getDayScheduleId());
+			ToDoSchedule toDoSchedule = new ToDoSchedule(toDoScheduleRequest.getContent(),
+				toDoScheduleRequest.isCheckTodo(), toDoScheduleRequest.getStartTime(),
+				toDoScheduleRequest.getEndTime());
+			toDoScheduleRepository.save(toDoSchedule);
+			daySchedule.addToDoSchedules(toDoSchedule);
+			log.info("save todo at dat {}", daySchedule.getToDoSchedules().size());
+			toDoScheduleResponses.add(ToDoScheduleResponse.toDto(toDoSchedule));
+		}
+
+		return toDoScheduleResponses;
 	}
 
 	@Transactional
