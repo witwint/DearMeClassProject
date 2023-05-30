@@ -62,8 +62,6 @@ public class UserService {
 	public UserInfoDto updateUser(UserUpdateDto updateDto) {
 
 		User findUser =  userRepository.findByUsername(updateDto.getUsername());
-		log.info("content{}", updateDto.getContent());
-		findUser.setContent(updateDto.getContent());
 		findUser.setEmail(updateDto.getEmail());
 		findUser.setPhone(updateDto.getPhone());
 		findUser.setPassword(updateDto.getPassword());

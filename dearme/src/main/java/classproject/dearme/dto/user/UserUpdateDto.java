@@ -17,7 +17,6 @@ public class UserUpdateDto {
 
 	private String username;
 
-	private String content;
 
 	private String password;
 

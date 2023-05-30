@@ -20,7 +20,6 @@ public class UserInfoDto {
 
 	private String phone;
 
-	private String content;
 
 	private String password;
 
@@ -30,7 +29,6 @@ public class UserInfoDto {
 			.username(user.getUsername())
 			.email(user.getEmail())
 			.phone(user.getPhone())
-			.content(user.getContent())
 			.password(user.getPassword())
 			.build();
 	}
