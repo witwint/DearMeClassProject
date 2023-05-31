@@ -65,6 +65,8 @@ public class TimeScheduleService {
 		if (daySchedule == null) {
 			daySchedule = new DaySchedule(null, null, toDoScheduleListRequest.getDate(), user);
 			dayScheduleRepository.save(daySchedule);
+		} else {
+			daySchedule.clearToDoSchedule();
 		}
 		List<ToDoScheduleResponse> toDoScheduleResponses = new ArrayList<>();
 		for (ToDoScheduleRequest toDoScheduleRequest : toDoScheduleListRequest.getToDoScheduleRequestList()) {

@@ -70,4 +70,8 @@ public class DaySchedule extends BaseEntity {
 	public void deleteToDoSchedule(ToDoSchedule toDoSchedule) {
 		this.toDoSchedules.remove(toDoSchedule);
 	}
+
+	public void clearToDoSchedule() {
+		this.toDoSchedules.clear();
+	}
 }
