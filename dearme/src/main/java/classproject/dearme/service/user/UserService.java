@@ -30,6 +30,10 @@ public class UserService {
 	//회원등록
 	@Transactional
 	public User saveUser(UserCreateDto userCreateDto) {
+		User byUsername = userRepository.findByUsername(userCreateDto.getUsername());
+		if (byUsername != null) {
+			return null;
+		}
 		User user = User.getUser(userCreateDto);
 		userRepository.save(user);
 		return user;

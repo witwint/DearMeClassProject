@@ -1,6 +1,6 @@
 package classproject.dearme.controller.user;
 
-import classproject.dearme.dto.file.UploadFileDto;
+import classproject.dearme.domain.user.User;
 import classproject.dearme.dto.user.UserCreateDto;
 import classproject.dearme.dto.user.UserInfoDto;
 import classproject.dearme.dto.user.UserLogin;
@@ -11,12 +11,9 @@ import classproject.dearme.response.Response;
 import classproject.dearme.service.file.FileService;
 import classproject.dearme.service.user.UserService;
 import io.swagger.annotations.Api;
-
 import io.swagger.annotations.ApiOperation;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
@@ -60,7 +57,12 @@ public class UserController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Response saveUser(@RequestBody UserCreateDto userCreateDto) {
-		return Response.success(userService.saveUser(userCreateDto));
+		User user = userService.saveUser(userCreateDto);
+		if (user == null) {
+			return Response.failure(400, "중복된 이름입니다.");
+		} else {
+			return Response.success(user);
+		}
 	}
 
 	//회원정보 조회
